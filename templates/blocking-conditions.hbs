@@ -1,0 +1,15 @@
+<div class="gtc-config-body">
+  <p class="hint">{{localize "GTC.Settings.BlockingMenu.Intro"}}</p>
+  <ul class="gtc-condition-list">
+    {{#each conditions}}
+    <li>
+      <label>
+        <input type="checkbox" name="cond{{@index}}" data-condition="{{id}}" {{checked checked}}>
+        {{#if img}}<img src="{{img}}" alt="">{{/if}}
+        <span class="label">{{label}}</span>
+      </label>
+      {{#if hint}}<p class="hint">{{hint}}</p>{{/if}}
+    </li>
+    {{/each}}
+  </ul>
+</div>

@@ -1,0 +1,142 @@
+{
+  "GTC": {
+    "Settings": {
+      "ExcludeDefeated": {
+        "Name": "전투불능/사망 전투원 턴 제외",
+        "Hint": "전투불능(해골) 표시나 사망(Dead) 상태인 전투원은 전투에는 남아 있지만(경험치 계산 유지) 턴을 받지 않고 채팅 기록 없이 바로 넘어갑니다."
+      },
+      "HpDeath": {
+        "Name": "HP로 사망 판정",
+        "Hint": "현재 HP가 -건강 능력치 이하(건강 점수가 없는 언데드·구조물은 0 이하)이면 사망으로 보고 턴에서 조용히 제외합니다.",
+        "Off": "사용 안 함",
+        "Npc": "플레이어 소유가 아닌 액터만",
+        "All": "PC와 NPC 모두",
+        "HintGeneric": "아래 'HP 경로'의 값이 '사망 기준 HP' 이하이면 사망으로 보고 턴에서 조용히 제외합니다."
+      },
+      "HideDeadTokens": {
+        "Name": "사망 + 턴 제외 토큰 숨기기",
+        "Hint": "사망(전투불능 표시, 사망 상태, HP 사망 기준)이면서 턴 제외된 전투원의 토큰과 추적기 항목을 플레이어에게서 숨깁니다(GM에게는 반투명). 되살아나거나 턴 제외를 풀면 다시 보입니다. 이 모듈이 숨긴 토큰만 되돌립니다."
+      },
+      "RevealOnCombatEnd": {
+        "Name": "전투 종료 시 숨긴 토큰 다시 표시",
+        "Hint": "전투(인카운터)를 끝내면 이 모듈이 숨긴 사망 토큰을 다시 보이게 합니다(루팅 등)."
+      },
+      "GroupSwap": {
+        "Name": "대표 토큰 사망 시 같은 종류의 살아있는 토큰으로 턴 넘기기",
+        "Hint": "잡몹 여러 마리를 토큰 하나로 이니셔티브 관리할 때, 그 토큰이 죽으면 같은 액터의 살아있는 토큰(전투에 없는 것, 가까운 순)으로 전투원을 옮겨 같은 우선권으로 계속 턴이 돕니다. 죽은 토큰은 턴 없는 전투원으로 남아 경험치에 포함됩니다."
+      },
+      "HpStates": {
+        "Name": "HP로 빈사/기절 판정",
+        "Hint": "HP가 음수이고 안정(Stable) 상태가 아니면 빈사, 비살상 피해가 현재 HP를 넘으면 기절로 보고 턴을 자동 종료합니다. 불굴(Diehard)·흉포(Ferocity) 보유자는 빈사 판정에서 제외됩니다."
+      },
+      "AutoEndTurn": {
+        "Name": "행동 불가 디버프 자동 턴 종료",
+        "Hint": "턴이 시작될 때 행동 불가 상태이상이 있으면 채팅에 사유를 남기고 자동으로 턴을 넘깁니다. 대상 상태이상은 아래 메뉴에서 고릅니다."
+      },
+      "Confusion": {
+        "Name": "혼란 자동 판정",
+        "Hint": "혼란(Confused) 상태인 전투원의 턴 시작 시 d% 행동표를 굴립니다. 26–50(헛소리)이 나오면 턴을 자동 종료합니다."
+      },
+      "AnnounceDelay": {
+        "Name": "지연 채팅 알림",
+        "Hint": "지연 선언, 지연 행동, 지연 행동 상실을 채팅에 남깁니다."
+      },
+      "AutoEndPause": {
+        "Name": "자동 턴 종료 대기(ms)",
+        "Hint": "자동 턴 종료 메시지를 보여준 뒤 다음 턴으로 넘어가기 전 대기 시간입니다."
+      },
+      "BlockingMenu": {
+        "Name": "턴 종료 상태이상",
+        "Label": "상태이상 선택",
+        "Hint": "어떤 상태이상이 있을 때 턴을 자동으로 끝낼지 정합니다.",
+        "Intro": "체크한 상태이상이 턴 시작 시점에 남아 있으면 턴이 자동 종료됩니다. 목록은 현재 게임 시스템의 상태이상이며, 기본값은 '행동할 수 없음'에 해당하는 것들입니다(PF1은 코어 룰북 부록 2 기준).",
+        "Reset": "기본값"
+      },
+      "HpPath": {
+        "Name": "HP 경로",
+        "Hint": "액터의 현재 HP가 들어 있는 데이터 경로입니다. 예: system.attributes.hp.value (D&D 5e 등). 비워 두면 HP 판정을 하지 않습니다."
+      },
+      "HpDeathAt": {
+        "Name": "사망 기준 HP",
+        "Hint": "HP가 이 값 이하이면 사망으로 봅니다."
+      }
+    },
+    "Condition": {
+      "dead": "사망: 행동할 수 없음.",
+      "dying": "빈사: 의식을 잃고 행동할 수 없음. 매 턴 DC 10 건강 판정으로 안정화.",
+      "petrified": "석화: 기절한 것으로 취급.",
+      "unconscious": "기절: 의식을 잃고 무력함.",
+      "sleep": "수면: 기절·무력 상태.",
+      "stunned": "충격: 행동할 수 없음, AC -2, 민첩 보너스 상실.",
+      "dazed": "멍함: 행동할 수 없음.",
+      "cowering": "움츠림: 공포로 얼어붙어 행동할 수 없음.",
+      "paralyzed": "마비: 움직이거나 행동할 수 없음. 순수한 정신적 행동은 가능(필요하면 체크 해제).",
+      "helpless": "무력: 마비·속박·수면·기절 등. 대부분 다른 상태이상으로 이미 처리됨.",
+      "panicked": "공황: 도주 외 행동 불가. 도주 이동은 GM이 직접 처리해야 함.",
+      "nauseated": "구역질: 이동 행동 1회만 가능(RAW상 턴은 있음).",
+      "staggered": "비틀거림: 이동 또는 표준 행동 1회(RAW상 턴은 있음).",
+      "disabled": "행동 제한: 이동 또는 표준 행동 1회(RAW상 턴은 있음).",
+      "nonlethal": "비살상 피해가 현재 HP를 초과해 기절."
+    },
+    "Chat": {
+      "BlockedTitle": "턴 자동 종료",
+      "BlockedBody": "<strong>{name}</strong>은(는) 행동할 수 없어 턴이 넘어갑니다.",
+      "DyingCheck": "이번 턴 안정화 판정: DC 10 건강 판정, 페널티 {penalty}(음수 HP). 실패 시 HP 1 감소, 자연 20은 자동 성공.",
+      "DyingBleed": "출혈 등 지속 피해 중에는 안정화 판정에 자동 실패하고 지속 피해와 별도로 HP 1을 잃습니다.",
+      "StabilizeButton": "안정화 판정 굴리기",
+      "NoneCanAct": "행동할 수 있는 전투원이 없어 자동으로 넘기지 않았습니다.",
+      "ConfusionTitle": "혼란 행동 판정",
+      "ConfusionBody": "<strong>{name}</strong>의 이번 라운드 행동:",
+      "ConfusionSkip": "헛소리만 하며 아무것도 하지 않습니다. 턴이 넘어갑니다.",
+      "DelayTitle": "지연",
+      "DelayBody": "<strong>{name}</strong>이(가) 행동을 지연합니다.",
+      "ResumeTitle": "지연 행동",
+      "ResumeBefore": "<strong>{name}</strong>이(가) {anchor}보다 먼저 행동합니다. 새 우선권: {init}",
+      "ResumeAfter": "<strong>{name}</strong>이(가) {anchor}의 턴이 끝난 뒤 행동합니다. 새 우선권: {init}",
+      "DelayLostTitle": "지연 행동 상실",
+      "DelayLostBody": "<strong>{name}</strong>은(는) 지연한 채 원래 차례가 돌아와 지연 행동을 잃고 정상적으로 턴을 진행합니다(다시 지연 가능)."
+    },
+    "Confusion": {
+      "Normal": "정상적으로 행동",
+      "Babble": "아무것도 하지 않고 헛소리만 함",
+      "Self": "손에 든 물건으로 자신에게 1d8 + 근력 수정치 피해",
+      "Attack": "가장 가까운 생물을 공격(퍼밀리어는 자신으로 취급)",
+      "Attacked": "공격받은 혼란 생물은 다음 턴에 혼란이 남아 있으면 공격자를 자동으로 공격합니다. 지시된 행동을 할 수 없으면 헛소리만 합니다.",
+      "SelfFormula": "피해: [[/r {formula}]]"
+    },
+    "Warn": {
+      "NoGM": "접속한 GM이 없어 처리할 수 없습니다.",
+      "NotOwner": "이 액터의 소유 권한이 없습니다.",
+      "DelayNotYourTurn": "지연은 자신의 턴에만 선언할 수 있습니다.",
+      "DelayBlocked": "행동할 수 없는 상태에서는 지연할 수 없습니다.",
+      "NoAnchorInitiative": "기준 전투원의 우선권이 없어 끼어들 수 없습니다."
+    },
+    "Tracker": {
+      "NoTurnBadge": "턴 제외",
+      "Excluded": {
+        "manual": "턴 제외(수동): 전투에는 남아 있지만 턴을 받지 않습니다.",
+        "defeated": "턴 제외: 전투불능/사망",
+        "hpDead": "턴 제외: HP가 사망 기준 이하"
+      },
+      "DelayBadge": "지연 중",
+      "DelayAfterBadge": "지연: {name} 다음",
+      "DelayTooltip": "{round}라운드부터 지연 중",
+      "BlockedBadge": "행동 불가",
+      "ToggleNoTurn": "턴 제외 전환",
+      "Delay": "지연",
+      "ResumeNow": "지금 행동 ({name}보다 먼저)",
+      "QueueAfter": "{name}의 턴이 끝나면 행동",
+      "DelayCurrent": "{name} 지연"
+    },
+    "Menu": {
+      "ToggleNoTurn": "턴 제외 전환",
+      "Delay": "지연",
+      "ResumeNow": "지금 행동(현재 턴보다 먼저)",
+      "QueueAfter": "현재 턴이 끝나면 행동",
+      "CancelDelay": "지연 표시 해제"
+    },
+    "Notify": {
+      "GroupSwap": "{dead} 사망 → {next}이(가) 같은 우선권으로 턴을 이어받습니다."
+    }
+  }
+}

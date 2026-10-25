@@ -1,0 +1,142 @@
+{
+  "GTC": {
+    "Settings": {
+      "ExcludeDefeated": {
+        "Name": "No turn for defeated/dead combatants",
+        "Hint": "Combatants marked defeated (skull) or with the Dead condition stay in the encounter (experience still counts) but get no turn and are passed over without a chat message."
+      },
+      "HpDeath": {
+        "Name": "Death by hit points",
+        "Hint": "Treat current HP at or below -Con score (0 for creatures without Con) as dead and silently exclude from turns.",
+        "Off": "Off",
+        "Npc": "Actors without a player owner",
+        "All": "PCs and NPCs",
+        "HintGeneric": "Treat the value at 'HP path' at or below 'Death HP' as dead and silently exclude from turns."
+      },
+      "HideDeadTokens": {
+        "Name": "Hide dead turn-excluded tokens",
+        "Hint": "Hide the token and tracker entry of a dead (defeated marker, Dead condition or HP death threshold) turn-excluded combatant from players (GMs see it faded). Shown again when revived or no longer excluded. Only tokens this module hid are restored."
+      },
+      "RevealOnCombatEnd": {
+        "Name": "Show hidden tokens when combat ends",
+        "Hint": "When the encounter is deleted, show the dead tokens this module hid (e.g. for looting)."
+      },
+      "GroupSwap": {
+        "Name": "Pass a dead representative's turn to a living token of its kind",
+        "Hint": "When one token runs the initiative for a group of identical mobs and dies, move the combatant onto a living token of the same actor that is not in combat (nearest first) so the group keeps its initiative. The dead token stays as a turnless combatant for experience."
+      },
+      "HpStates": {
+        "Name": "Dying/unconscious by hit points",
+        "Hint": "Negative HP without Stable counts as dying, nonlethal damage above current HP as unconscious; their turn ends automatically. Diehard/Ferocity ignore the dying check."
+      },
+      "AutoEndTurn": {
+        "Name": "End turns for incapacitating conditions",
+        "Hint": "When a turn starts with a condition that prevents actions, post the reason to chat and advance the turn."
+      },
+      "Confusion": {
+        "Name": "Roll confusion behaviour",
+        "Hint": "Roll the d% confusion table at the start of a confused combatant's turn; 26-50 (babble) ends the turn."
+      },
+      "AnnounceDelay": {
+        "Name": "Announce delays in chat",
+        "Hint": "Post delay, delayed action and forfeited delay messages."
+      },
+      "AutoEndPause": {
+        "Name": "Pause before auto end (ms)",
+        "Hint": "Wait after the auto end message before advancing."
+      },
+      "BlockingMenu": {
+        "Name": "Turn-ending conditions",
+        "Label": "Choose conditions",
+        "Hint": "Choose which conditions end a turn automatically.",
+        "Intro": "A checked condition still present when the turn starts ends that turn. The list comes from the current game system; defaults are the 'can take no actions' ones (PF1: Core Rulebook Appendix 2).",
+        "Reset": "Defaults"
+      },
+      "HpPath": {
+        "Name": "HP path",
+        "Hint": "Data path of an actor's current hit points, e.g. system.attributes.hp.value (D&D 5e and others). Leave empty to disable HP checks."
+      },
+      "HpDeathAt": {
+        "Name": "Death HP",
+        "Hint": "Hit points at or below this value count as dead."
+      }
+    },
+    "Condition": {
+      "dead": "Dead: can take no actions.",
+      "dying": "Dying: unconscious, can take no actions. DC 10 Con check each turn to stabilize.",
+      "petrified": "Petrified: considered unconscious.",
+      "unconscious": "Unconscious: knocked out and helpless.",
+      "sleep": "Asleep: unconscious and helpless.",
+      "stunned": "Stunned: can't take actions, -2 AC, loses Dex bonus.",
+      "dazed": "Dazed: can take no actions.",
+      "cowering": "Cowering: frozen in fear, can take no actions.",
+      "paralyzed": "Paralyzed: can't move or act; purely mental actions allowed (untick if needed).",
+      "helpless": "Helpless: paralyzed, bound, asleep, unconscious... usually covered by another condition.",
+      "panicked": "Panicked: can only flee; the GM moves the creature.",
+      "nauseated": "Nauseated: a single move action (RAW still has a turn).",
+      "staggered": "Staggered: a single move or standard action (RAW still has a turn).",
+      "disabled": "Disabled: a single move or standard action (RAW still has a turn).",
+      "nonlethal": "Unconscious from nonlethal damage above current HP."
+    },
+    "Chat": {
+      "BlockedTitle": "Turn ended",
+      "BlockedBody": "<strong>{name}</strong> can't act and the turn passes.",
+      "DyingCheck": "Stabilize this turn: DC 10 Constitution check with a {penalty} penalty (negative HP). Failure loses 1 HP; natural 20 succeeds.",
+      "DyingBleed": "While taking continuous damage such as bleed, stabilization checks fail automatically and 1 extra HP is lost.",
+      "StabilizeButton": "Roll stabilization",
+      "NoneCanAct": "Nobody in the encounter can act, so the turn was not advanced.",
+      "ConfusionTitle": "Confusion",
+      "ConfusionBody": "<strong>{name}</strong> this round:",
+      "ConfusionSkip": "Does nothing but babble. The turn passes.",
+      "DelayTitle": "Delay",
+      "DelayBody": "<strong>{name}</strong> delays.",
+      "ResumeTitle": "Delayed action",
+      "ResumeBefore": "<strong>{name}</strong> acts before {anchor}. New initiative: {init}",
+      "ResumeAfter": "<strong>{name}</strong> acts after {anchor}'s turn. New initiative: {init}",
+      "DelayLostTitle": "Delayed action lost",
+      "DelayLostBody": "<strong>{name}</strong> reached their regular turn while delaying, loses the delayed action and acts normally (may delay again)."
+    },
+    "Confusion": {
+      "Normal": "Act normally",
+      "Babble": "Do nothing but babble incoherently",
+      "Self": "Deal 1d8 + Str modifier damage to self with item in hand",
+      "Attack": "Attack nearest creature (a familiar counts as self)",
+      "Attacked": "A confused creature that is attacked attacks its attackers on its next turn if still confused. If it can't carry out the result it babbles.",
+      "SelfFormula": "Damage: [[/r {formula}]]"
+    },
+    "Warn": {
+      "NoGM": "No GM is connected to handle this.",
+      "NotOwner": "You don't own this actor.",
+      "DelayNotYourTurn": "You can only delay on your own turn.",
+      "DelayBlocked": "A creature that can't act can't delay.",
+      "NoAnchorInitiative": "That combatant has no initiative to act around."
+    },
+    "Tracker": {
+      "NoTurnBadge": "No turn",
+      "Excluded": {
+        "manual": "No turn (manual): stays in the encounter but gets no turn.",
+        "defeated": "No turn: defeated/dead",
+        "hpDead": "No turn: HP at or below the death threshold"
+      },
+      "DelayBadge": "Delaying",
+      "DelayAfterBadge": "Delay: after {name}",
+      "DelayTooltip": "Delaying since round {round}",
+      "BlockedBadge": "Can't act",
+      "ToggleNoTurn": "Toggle no turn",
+      "Delay": "Delay",
+      "ResumeNow": "Act now (before {name})",
+      "QueueAfter": "Act when {name}'s turn ends",
+      "DelayCurrent": "Delay {name}"
+    },
+    "Menu": {
+      "ToggleNoTurn": "Toggle no turn",
+      "Delay": "Delay",
+      "ResumeNow": "Act now (before current turn)",
+      "QueueAfter": "Act after current turn",
+      "CancelDelay": "Clear delay"
+    },
+    "Notify": {
+      "GroupSwap": "{dead} died, {next} takes over its initiative."
+    }
+  }
+}
