@@ -34,7 +34,7 @@ async function syncCombat(combat) {
       await combatant.update({ hidden: true, [mod.flagKey(FLAGS.hiddenDead)]: true });
     } else if (!hide && hiddenByUs) {
       await token.update({ hidden: false });
-      await combatant.update({ hidden: false, [mod.flagDeleteKey(FLAGS.hiddenDead)]: null });
+      await combatant.update({ hidden: false, [mod.flagKey(FLAGS.hiddenDead)]: _del });
     }
   }
 }
@@ -70,9 +70,8 @@ export function registerVisibilityHooks() {
   }
   Hooks.on("createCombatant", (combatant) => scheduleSync(combatant.parent));
   Hooks.on("updateCombatant", (combatant, changes) => {
-    // Ignore our own visibility writes.
+    // Ignore our own visibility writes (a v14 _del deletion also shows up under the plain flag key).
     if (foundry.utils.hasProperty(changes, mod.flagKey(FLAGS.hiddenDead))) return;
-    if (foundry.utils.hasProperty(changes, mod.flagDeleteKey(FLAGS.hiddenDead))) return;
     scheduleSync(combatant.parent);
   });
   Hooks.once("ready", () => game.combats.forEach(scheduleSync));

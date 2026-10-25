@@ -61,8 +61,8 @@ export async function swapDeadRepresentatives(combat, isDead) {
       actorId: successor.actorId,
       defeated: false,
       hidden: successor.hidden,
-      [mod.flagDeleteKey(FLAGS.hiddenDead)]: null,
-      [mod.flagDeleteKey(FLAGS.noTurn)]: null
+      [mod.flagKey(FLAGS.hiddenDead)]: _del,
+      [mod.flagKey(FLAGS.noTurn)]: _del
     });
     ui.notifications.info(mod.L("Notify.GroupSwap", { dead: deadToken.name, next: successor.name }));
     changed = true;

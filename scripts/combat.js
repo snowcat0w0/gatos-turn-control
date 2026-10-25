@@ -31,11 +31,23 @@ export function createCombatClass(Base) {
       return null;
     }
 
+    /** Same as core (v14 also skips defeated here), but passes over every combatant without a turn. */
+    get nextCombatant() {
+      const turn = this.turn ?? -1;
+      for (let i = 1; i <= this.turns.length; i++) {
+        const candidate = this.turns[(turn + i) % this.turns.length];
+        if (!this._gtcSkip(candidate)) return candidate;
+      }
+      return null;
+    }
+
     async startCombat() {
       this._playCombatSound("startEncounter");
       const updateData = { round: 1, turn: this._gtcFirst() ?? 0 };
       Hooks.callAll("combatStart", this, updateData);
       await this.update(updateData);
+      // v14 core: effect durations are reframed against the combat once it starts.
+      await foundry.documents.ActiveEffect.registry.refresh("combatStart", { combat: this });
       return this;
     }
 
@@ -240,9 +252,17 @@ export async function onResumeUpdate(combat, changed, options) {
     if (!game.user.isActiveGM) return;
     const ctx = { round: combat.round, turn: combat.turn, skipped: false };
     const ended = info.ended ? combat.combatants.get(info.ended) : null;
+    // The resume update skips core turn events (turnEvents: false), so run the v14 effect-duration refreshes too.
+    const registry = foundry.documents.ActiveEffect.registry;
     try {
-      if (ended) await combat._onEndTurn(ended, ctx);
-      if (combat.combatant) await combat._gtcSystemStartTurn(combat.combatant, ctx);
+      if (ended) {
+        await combat._onEndTurn(ended, ctx);
+        await registry.refresh("turnEnd", { ...ctx, combat });
+      }
+      if (combat.combatant) {
+        await combat._gtcSystemStartTurn(combat.combatant, ctx);
+        await registry.refresh("turnStart", { ...ctx, combat });
+      }
     } catch (err) {
       console.error(err);
     }

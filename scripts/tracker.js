@@ -135,46 +135,46 @@ export function onGetContextOptions(app, entries) {
 
   entries.push(
     {
-      name: "GTC.Menu.ToggleNoTurn",
-      icon: '<i class="fa-solid fa-user-slash"></i>',
-      condition: (li) => game.user.isGM && !!combatantOf(li),
-      callback: (li) => api.toggleNoTurn(combatantOf(li))
+      label: "GTC.Menu.ToggleNoTurn",
+      icon: "fa-solid fa-user-slash",
+      visible: (li) => game.user.isGM && !!combatantOf(li),
+      onClick: (event, li) => api.toggleNoTurn(combatantOf(li))
     },
     {
-      name: "GTC.Menu.Delay",
-      icon: '<i class="fa-solid fa-hourglass-half"></i>',
-      condition: (li) => {
+      label: "GTC.Menu.Delay",
+      icon: "fa-solid fa-hourglass-half",
+      visible: (li) => {
         const c = combatantOf(li);
         return controls(c) && current() === c && !getDelay(c);
       },
-      callback: (li) => api.delay(combatantOf(li))
+      onClick: (event, li) => api.delay(combatantOf(li))
     },
     {
-      name: "GTC.Menu.ResumeNow",
-      icon: '<i class="fa-solid fa-play"></i>',
-      condition: (li) => {
+      label: "GTC.Menu.ResumeNow",
+      icon: "fa-solid fa-play",
+      visible: (li) => {
         const c = combatantOf(li);
         return controls(c) && !!getDelay(c) && !!current() && current() !== c;
       },
-      callback: (li) => api.resumeNow(combatantOf(li))
+      onClick: (event, li) => api.resumeNow(combatantOf(li))
     },
     {
-      name: "GTC.Menu.QueueAfter",
-      icon: '<i class="fa-solid fa-forward"></i>',
-      condition: (li) => {
+      label: "GTC.Menu.QueueAfter",
+      icon: "fa-solid fa-forward",
+      visible: (li) => {
         const c = combatantOf(li);
         return controls(c) && !!getDelay(c) && !!current() && current() !== c;
       },
-      callback: (li) => api.queueAfterCurrent(combatantOf(li))
+      onClick: (event, li) => api.queueAfterCurrent(combatantOf(li))
     },
     {
-      name: "GTC.Menu.CancelDelay",
-      icon: '<i class="fa-solid fa-hourglass-end"></i>',
-      condition: (li) => {
+      label: "GTC.Menu.CancelDelay",
+      icon: "fa-solid fa-hourglass-end",
+      visible: (li) => {
         const c = combatantOf(li);
         return controls(c) && !!getDelay(c);
       },
-      callback: (li) => api.cancelDelay(combatantOf(li))
+      onClick: (event, li) => api.cancelDelay(combatantOf(li))
     }
   );
 }

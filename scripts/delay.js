@@ -86,7 +86,7 @@ export async function doResume({ combatId, combatantId, mode = "before", anchorI
 
   const ins = computeInsertion(combat, mover, anchor, mode);
   if (!ins) return mod.notify.warn("Warn.NoAnchorInitiative");
-  ins.updates.find((u) => u._id === mover.id)[mod.flagDeleteKey(FLAGS.delay)] = null;
+  ins.updates.find((u) => u._id === mover.id)[mod.flagKey(FLAGS.delay)] = _del;
 
   await combat.updateEmbeddedDocuments("Combatant", ins.updates, { turnEvents: false });
   const newTurn = combat.turns.findIndex((c) => c.id === mover.id);

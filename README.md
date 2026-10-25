@@ -1,6 +1,6 @@
 # Gato's Turn Control
 
-Foundry v13용 전투 턴 관제 모듈. **게임 시스템 공용**이며, Pathfinder 1e(PF1 v11)에서는 PF1 규칙(빈사·혼란·안정화 등)이 추가로 적용됩니다.
+Foundry v14용 전투 턴 관제 모듈. **게임 시스템 공용**이며, Pathfinder 1e(PF1 v11)에서는 PF1 규칙(빈사·혼란·안정화 등)이 추가로 적용됩니다.
 
 **요구 모듈**(0.3.0부터): [gatos-lib](../gatos-lib/README.md)만. 시스템 무관 모듈이라 gatos-pf1-lib에는 의존하지 않고 PF1 규칙 어댑터(`scripts/systems/pf1.js`)는 자체 코드입니다. 설치만 되고 비활성이면 ready에서 경고가 뜹니다. 기능·API·설정 키·lang 키·플래그는 0.2.0과 같습니다.
 

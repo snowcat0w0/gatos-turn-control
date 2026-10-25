@@ -2,19 +2,19 @@
   "id": "gatos-turn-control",
   "title": "Gato's Turn Control",
   "description": "전투 턴 관제(시스템 공용): 턴 제외(전투 참여 유지), 행동 불가 상태이상에 의한 자동 턴 종료, 지연(Delay), 사망 토큰 숨기기, 잡몹 대표 토큰. Pathfinder 1e에서는 빈사·혼란 등 PF1 규칙이 추가로 적용됩니다.",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "authors": [
     {
       "name": "jesun"
     }
   ],
   "compatibility": {
-    "minimum": "13",
-    "verified": "13"
+    "minimum": "14",
+    "verified": "14"
   },
   "relationships": {
     "requires": [
-      { "id": "gatos-lib", "type": "module", "compatibility": { "minimum": "1.0.0-alpha.1" } }
+      { "id": "gatos-lib", "type": "module", "compatibility": { "minimum": "1.1.0-alpha.1" } }
     ]
   },
   "esmodules": [
